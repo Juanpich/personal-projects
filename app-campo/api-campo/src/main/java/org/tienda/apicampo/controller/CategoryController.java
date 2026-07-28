@@ -1,8 +1,10 @@
 package org.tienda.apicampo.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.tienda.apicampo.domain.dto.CategoryDto;
+import org.tienda.apicampo.domain.exceptions.NonExistentCategoryException;
 import org.tienda.apicampo.service.CategoryService;
 
 @RequestMapping("/category")
@@ -33,12 +35,23 @@ public class CategoryController {
         return ResponseEntity.ok(cd);
     }
 
-        @PostMapping("")
-        public ResponseEntity<?> createCategory(@RequestBody CategoryDto cd) {
-            try{
-                return  ResponseEntity.ok(this.service.createCategory(cd));
-            }catch(Exception e){
-                return ResponseEntity.badRequest().body(e.getMessage());
-            }
+    @PostMapping("")
+    public ResponseEntity<?> createCategory(@RequestBody CategoryDto cd) {
+        try{
+            return  ResponseEntity.ok(this.service.createCategory(cd));
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCategory(@PathVariable("id") Long id) {
+        try{
+            this.service.deleteCategory(id);
+            return ResponseEntity.status(HttpStatus.OK).body("DELETED");
+        }catch(NonExistentCategoryException e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }

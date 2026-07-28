@@ -8,5 +8,5 @@ import org.tienda.apicampo.domain.entities.Animal;
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, Long> {
     Animal getAnimalByCaravanNumber(Long caravanNumber);
-
+    boolean existsByCategory_IdCategory(Long id);
 }

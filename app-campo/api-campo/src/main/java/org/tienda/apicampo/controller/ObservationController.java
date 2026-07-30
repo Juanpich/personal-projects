@@ -1,5 +1,6 @@
 package org.tienda.apicampo.controller;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,14 @@ public class ObservationController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(this.observationService.saveObservation(observationDto));
         }catch(NonExistentAnimalException e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteObservation(@PathVariable("id") Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body("DELETED");
+        }catch(NonExistentObservationException e){
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }

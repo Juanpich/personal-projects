@@ -56,4 +56,11 @@ public class ObservationService {
         Observation newOb = this.repository.save(observation);
         return new ObservationDto(newOb);
     }
+    @Transactional
+    public void deleteObservation(Long id) throws NonExistentObservationException{
+        if(!this.repository.existsById(id)){
+            throw new NonExistentObservationException(id.toString());
+        }
+        this.repository.deleteById(id);
+    }
 }

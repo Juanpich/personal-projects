@@ -16,4 +16,6 @@ public interface ObservationRepository extends JpaRepository<Observation,Long> {
             JOIN o.animal a
             WHERE a.idAnimal = :idAnimal""")
     List<ObservationDto> getAllObservationsByAnimalId(Long idAnimal);
+
+    boolean existsObservationByAnimal_IdAnimal(Long animalIdAnimal);
 }

@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.tienda.apicampo.domain.dto.AnimalDto;
 import org.tienda.apicampo.domain.exceptions.AnimalAlreadyExistsException;
+import org.tienda.apicampo.domain.exceptions.DatabaseException;
 import org.tienda.apicampo.domain.exceptions.NonExistentAnimalException;
 import org.tienda.apicampo.service.AnimalService;
 
@@ -55,6 +56,17 @@ public class AnimalController {
             return ResponseEntity.ok(this.service.updateAnimal(animalDto));
         }catch(AnimalAlreadyExistsException | NonExistentAnimalException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAnimal(@PathVariable long id) {
+        try{
+            this.service.deleteAnimal(id);
+            return ResponseEntity.status(HttpStatus.OK).body("DELETED");
+        }catch(DatabaseException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }catch(NonExistentAnimalException e){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(e.getMessage());
         }
     }
 }

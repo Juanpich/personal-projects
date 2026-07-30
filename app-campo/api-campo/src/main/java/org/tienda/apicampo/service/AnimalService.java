@@ -9,12 +9,10 @@ import org.tienda.apicampo.domain.dto.AnimalDto;
 import org.tienda.apicampo.domain.dto.CategoryDto;
 import org.tienda.apicampo.domain.entities.Animal;
 import org.tienda.apicampo.domain.entities.Category;
-import org.tienda.apicampo.domain.exceptions.AnimalAlreadyExistsException;
-import org.tienda.apicampo.domain.exceptions.NonExistentAnimalException;
-import org.tienda.apicampo.domain.exceptions.NonExistentCategoryException;
-import org.tienda.apicampo.domain.exceptions.RequiredFieldException;
+import org.tienda.apicampo.domain.exceptions.*;
 import org.tienda.apicampo.repository.AnimalRepository;
 import org.tienda.apicampo.repository.CategoryRepository;
+import org.tienda.apicampo.repository.ObservationRepository;
 
 import java.net.URI;
 import java.util.List;
@@ -24,11 +22,13 @@ public class AnimalService {
     private final AnimalRepository repository;
     private final CategoryService categoryService;
     private final CategoryRepository categoryRepository;
+    private final ObservationRepository observationRepository;
 
-    public  AnimalService(AnimalRepository repository, CategoryService catSer,  CategoryRepository catRepo) {
+    public  AnimalService(AnimalRepository repository, CategoryService catSer,  CategoryRepository catRepo,ObservationRepository observationRepository) {
 	    this.repository = repository;
         this.categoryService = catSer;
         this.categoryRepository = catRepo;
+        this.observationRepository = observationRepository;
     }
 
     @Transactional(readOnly = true)
@@ -102,5 +102,15 @@ public class AnimalService {
     @Transactional(readOnly = true)
     public AnimalDto getAnibalByCaravan(Long nro) {
         return new AnimalDto(this.repository.getAnimalByCaravanNumber(nro));
+    }
+    @Transactional
+    public void deleteAnimal(Long id) throws DatabaseException, NonExistentAnimalException {
+        if(this.repository.getAnimalByCaravanNumber(id) == null){
+            throw new NonExistentAnimalException(id.toString());
+        }
+        if(this.observationRepository.existsObservationByAnimal_IdAnimal(id)){
+            throw new DatabaseException("The category is associated");
+        }
+        this.repository.deleteById(id);
     }
 }

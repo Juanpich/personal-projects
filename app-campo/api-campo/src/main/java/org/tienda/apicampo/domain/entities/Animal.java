@@ -1,17 +1,20 @@
 package org.tienda.apicampo.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = "category")
 @NoArgsConstructor
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long idAnimal;
     @Column(nullable = false)
     private Long caravanNumber;

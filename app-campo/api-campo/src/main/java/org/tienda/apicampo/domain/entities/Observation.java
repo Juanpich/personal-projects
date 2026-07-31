@@ -1,17 +1,21 @@
 package org.tienda.apicampo.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Data
+
 @NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = "animal")
 @Entity
 public class Observation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long idObervation;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -28,7 +28,7 @@ public class CategoryService {
     }
     @Transactional(readOnly = true)
     public CategoryDto findById(Long id) {
-        return this.repository.findById(id).map(CategoryDto::new).orElse(null);
+        return this.repository.findById(id).map(CategoryDto::new).orElseThrow(()-> new NonExistentCategoryException(id.toString()));
     }
 
     @Transactional
@@ -40,7 +40,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public void deleteCategory(Long id) throws NonExistentCategoryException, DatabaseException {
+    public void deleteCategory(Long id) {
         if(!this.repository.existsById(id)) {
             throw new NonExistentCategoryException(id.toString());
         }

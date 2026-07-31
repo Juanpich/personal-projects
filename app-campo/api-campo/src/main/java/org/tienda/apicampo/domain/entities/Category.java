@@ -1,13 +1,11 @@
 package org.tienda.apicampo.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @Entity
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
 public class Category {
     @Id

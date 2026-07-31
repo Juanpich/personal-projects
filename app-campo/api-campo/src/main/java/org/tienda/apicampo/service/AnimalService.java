@@ -3,10 +3,7 @@ package org.tienda.apicampo.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.tienda.apicampo.domain.dto.AnimalDto;
-import org.tienda.apicampo.domain.dto.CategoryDto;
 import org.tienda.apicampo.domain.entities.Animal;
 import org.tienda.apicampo.domain.entities.Category;
 import org.tienda.apicampo.domain.exceptions.*;
@@ -14,19 +11,16 @@ import org.tienda.apicampo.repository.AnimalRepository;
 import org.tienda.apicampo.repository.CategoryRepository;
 import org.tienda.apicampo.repository.ObservationRepository;
 
-import java.net.URI;
 import java.util.List;
 
 @Service
 public class AnimalService {
     private final AnimalRepository repository;
-    private final CategoryService categoryService;
     private final CategoryRepository categoryRepository;
     private final ObservationRepository observationRepository;
 
-    public  AnimalService(AnimalRepository repository, CategoryService catSer,  CategoryRepository catRepo,ObservationRepository observationRepository) {
+    public  AnimalService(AnimalRepository repository, CategoryRepository catRepo,ObservationRepository observationRepository) {
 	    this.repository = repository;
-        this.categoryService = catSer;
         this.categoryRepository = catRepo;
         this.observationRepository = observationRepository;
     }
@@ -40,7 +34,6 @@ public class AnimalService {
     public AnimalDto createAnimal(AnimalDto animalDto) {
         //verificar datos obligatorios
         //ver si el campo caravana existe
-        System.out.println(animalDto.toString());
         if(animalDto.getCaravanNumber() == null) {
             throw new RequiredFieldException("caravanNumber");
         }
@@ -70,7 +63,7 @@ public class AnimalService {
     }
 
     @Transactional
-    public AnimalDto updateAnimal(AnimalDto animalDto)throws AnimalAlreadyExistsException, NonExistentAnimalException {
+    public AnimalDto updateAnimal(AnimalDto animalDto) {
         //busco el animal en la db segun id
         Animal animalOld = this.repository.findById(animalDto.getIdAnimal()).orElseThrow(() -> new NonExistentAnimalException(animalDto.getIdAnimal().toString()));
         //verifico si el campo caravana cambio
@@ -101,15 +94,18 @@ public class AnimalService {
     }
     @Transactional(readOnly = true)
     public AnimalDto getAnibalByCaravan(Long nro) {
-        return new AnimalDto(this.repository.getAnimalByCaravanNumber(nro));
+        Animal an = this.repository.getAnimalByCaravanNumber(nro);
+        if(an == null){
+            throw new NonExistentAnimalException( " caravan" + nro.toString());
+        }
+        return new AnimalDto(an);
     }
     @Transactional
-    public void deleteAnimal(Long id) throws DatabaseException, NonExistentAnimalException {
-        if(this.repository.getAnimalByCaravanNumber(id) == null){
+    public void deleteAnimal(Long id) {
+        if(!this.repository.existsById(id))
             throw new NonExistentAnimalException(id.toString());
-        }
         if(this.observationRepository.existsObservationByAnimal_IdAnimal(id)){
-            throw new DatabaseException("The category is associated");
+            throw new DatabaseException("The animal has associated observations");
         }
         this.repository.deleteById(id);
     }

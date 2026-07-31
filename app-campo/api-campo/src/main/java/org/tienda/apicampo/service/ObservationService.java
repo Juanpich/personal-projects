@@ -18,12 +18,10 @@ import java.util.List;
 public class ObservationService {
     private final ObservationRepository repository;
     private final AnimalRepository animalRepository;
-    private final CategoryRepository categoryRepository;
 
-    public ObservationService(ObservationRepository observationRepository,  AnimalRepository animalRepository, CategoryRepository categoryRepository) {
+    public ObservationService(ObservationRepository observationRepository,  AnimalRepository animalRepository) {
         this.repository = observationRepository;
         this.animalRepository = animalRepository;
-        this.categoryRepository = categoryRepository;
     }
 
     @Transactional(readOnly = true)
@@ -41,7 +39,7 @@ public class ObservationService {
         return list;
     }
     @Transactional(readOnly = false)
-    public ObservationDto saveObservation(CreationObservationDto observationDto) throws NonExistentAnimalException {
+    public ObservationDto saveObservation(CreationObservationDto observationDto) {
         Observation observation = new Observation();
         Animal animal = this.animalRepository.findById(observationDto.getIdAnimal())
                 .orElseThrow(()-> new NonExistentAnimalException(observationDto.getIdAnimal().toString()));
@@ -57,7 +55,7 @@ public class ObservationService {
         return new ObservationDto(newOb);
     }
     @Transactional
-    public void deleteObservation(Long id) throws NonExistentObservationException{
+    public void deleteObservation(Long id) {
         if(!this.repository.existsById(id)){
             throw new NonExistentObservationException(id.toString());
         }

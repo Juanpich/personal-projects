@@ -16,8 +16,8 @@ public class AnimalController {
     }
 
     @GetMapping("")
-    public ResponseEntity<?> getAllAnimal() {
-            return ResponseEntity.ok(this.service.getAllAnimal());
+    public ResponseEntity<?> getAllAnimal(@RequestParam(required = false) String category) {
+            return ResponseEntity.ok(this.service.getAllAnimal(category));
     }
 
     @GetMapping("/caravan/{nro}")

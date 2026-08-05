@@ -26,8 +26,12 @@ public class AnimalService {
     }
 
     @Transactional(readOnly = true)
-    public List<AnimalDto> getAllAnimal() {
-        return this.repository.findAll().stream().map(AnimalDto :: new).toList();
+    public List<AnimalDto> getAllAnimal(String category) {
+        if(category == null || category.isEmpty())
+            return this.repository.findAll().stream().map(AnimalDto :: new).toList();
+        else{
+            return this.repository.findAllByCategory(category);
+        }
     }
 
     @Transactional

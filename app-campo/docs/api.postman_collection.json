@@ -1,0 +1,428 @@
+{
+  "info": {
+    "_postman_id": "c1bde55e-e503-4ec1-9db4-0a105926d87f",
+    "name": "api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "39005981"
+  },
+  "item": [
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Get All Category",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"caravanNumber\": 123,\r\n    \"lastWeight\": 54\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/category",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Vacia\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/category",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"caravanNumber\": 123,\r\n    \"lastWeight\": 54\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/category/1",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "category",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"Vaca\"\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/category/1",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "category",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Animal",
+      "item": [
+        {
+          "name": "get animal by carvan number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/animal/caravan/123445",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "animal",
+                "caravan",
+                "123445"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update animal",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"caravanNumber\": 1234456,\r\n    \"lastWeight\": 56,\r\n    \"idCategory\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/animal/3",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "animal",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create animal",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"caravanNumber\": 1001,\r\n    \"idCategory\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/animal",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "animal"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all animal",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/animal",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "animal"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete animal",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idAnimal\":1 ,\r\n    \"weight\": 100, \r\n    \"description\":\"Peso del animal\"\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/animal/1",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "animal",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Observation",
+      "item": [
+        {
+          "name": "Creation observation",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idAnimal\":1 ,\r\n    \"weight\": 100, \r\n    \"description\":\"Peso del animal\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/observation",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "observation"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all observation",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idAnimal\":1 ,\r\n    \"weight\": 100, \r\n    \"description\":\"Peso del animal\"\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/observation",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "observation"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get observation by id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idAnimal\":1 ,\r\n    \"weight\": 100, \r\n    \"description\":\"Peso del animal\"\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/observation/2",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "observation",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get observation by animal id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idAnimal\":1 ,\r\n    \"weight\": 100, \r\n    \"description\":\"Peso del animal\"\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/observation/animal/1",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "observation",
+                "animal",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Observation",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"idAnimal\":1 ,\r\n    \"weight\": 100, \r\n    \"description\":\"Peso del animal\"\r\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/observation/2",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "observation",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Create user",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "authenticate",
+          "request": {
+            "auth": {
+              "type": "basic"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userName\":\"Juanpi\",\r\n    \"password\": 1234\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/authenticate",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "authenticate"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "localhost:"
+    }
+  ]
+}

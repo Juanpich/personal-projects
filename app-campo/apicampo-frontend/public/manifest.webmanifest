@@ -1,0 +1,17 @@
+{
+  "name": "Traza Campo",
+  "short_name": "Traza Campo",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1c1b18",
+  "theme_color": "#1c1b18",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}
